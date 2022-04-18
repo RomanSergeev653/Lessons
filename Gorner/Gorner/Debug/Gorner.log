@@ -1,0 +1,5 @@
+﻿  Gorner.cpp
+  funcs.cpp
+C:\Users\ДНС\source\repos\Gorner\Gorner\funcs.cpp(56,21): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
+  Gorner.vcxproj -> C:\Users\ДНС\source\repos\Gorner\Debug\Gorner.exe
