@@ -1,4 +1,5 @@
 ﻿#include "funcs.h"
+#include <limits>
 
 int main()
 {
@@ -16,52 +17,25 @@ int main()
 
 	string filename("solution.txt");
 
-	bool cf = 0;
-	cout << "Ввод с файла(0) или с консоли(1): ";
-	while (true)//console or file
-	{
-		cin >> S;
-		if (S.length() != 1)
-		{
-			system("cls");
-			cout << "Неправильный ввод, повторите снова... \nВвод с файла(0) или с консоли(1): ";
-			continue;
-		}
-		if (S[0] == '0')
-		{
-			cf = 0;
-			break;
-		}
-		if (S[0] == '1')
-		{
-			cf = 1;
-			break;
-		}
-
-		system("cls");
-		cout << "Неправильный ввод, повторите снова... \nВвод с файла(0) или с консоли(1): ";
-	}
+	bool cf = input_cf();
 
 	cout << "Введите название фаила для вывода: ";
-	cin >> S;
-	if (S.find(".txt") == -1)
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(cin, S);
+	if (S == "")
 	{
-		S.append(".txt");
-	}
-	rez.open(S);
-	if (!rez.is_open())
-	{
-		system("cls");
-		cout << "Фаил не найден, поэтому будет использоваться фаил по умолчанию... \n";
+
 	}
 	else
 	{
+		if (S.find(".txt") == -1)
+		{
+			S.append(".txt");
+		}
 		filename = S;
-		rez.close();
 	}
-	S.clear();
 
-	if (!cf)// file input
+	if (cf)// file input
 	{
 		while (!file.eof())
 		{
@@ -74,6 +48,7 @@ int main()
 	else// console input
 	{
 		cout << "Введите строку элементов: \n";
+		cin.ignore();
 		getline(cin, S);
 
 		analiz(S, check, zap, tire, vv);
