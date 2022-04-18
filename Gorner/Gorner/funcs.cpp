@@ -3,7 +3,7 @@
 bool input_cf()
 {
 	string buff("");
-
+	
 	while (true)
 	{
 		cout << "Выберите тип ввода данных. 0 - Консоль, 1 - Файл\n";
