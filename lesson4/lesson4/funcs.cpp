@@ -1,8 +1,32 @@
 #include "funcs.h"
 
-void analiz(string S, int& check, int& zap, int& tire, int& vv)
+class lesson
 {
-	for (int i = 0; i < S.length() - 1; i++) // сам анализ
+private:
+	int check{0};
+	int zap{0};
+	int tire{0};
+	int vv{0};
+
+public:
+
+	bool cf;
+	bool cf_1;
+
+	string S{""};
+	string filename{ "solution.txt" };
+
+	void analiz();
+	void vivod();
+	bool input_cf();
+	bool output_cf();
+	int cin_natural(string name = "");
+	float cin_float(string name = "");
+};
+
+void lesson::analiz()
+{
+	for (int i = 0; i < S.length() - 1; i++)
 	{
 		if ((S[i] == ',') || (S[i] == '-'))
 		{
@@ -23,22 +47,22 @@ void analiz(string S, int& check, int& zap, int& tire, int& vv)
 	}
 }
 
-void vivod(string filename, int check, int zap, int tire, int vv)
+void lesson::vivod()
 {
 	ofstream rez(filename);
 
-	rez << "Кол-во \",\" и \"-\" получилось ";
+	rez << "Кол-ва \",\" и \"-\" получилось: ";
 	rez << check;
-	rez << "\nКол-во \",\" получилось ";
+	rez << "\nКол-во \",\" получилось: ";
 	rez << zap;
-	rez << "\nКол-во \"-\" получилось ";
+	rez << "\nКол-во \"-\" получилось: ";
 	rez << tire;
-	rez << "\nКол-во мест, где идёт сначала \",\", а потом \"-\" получилось ";
+	rez << "\nКол-во случаев, когда сначала \",\", а потом \"-\" получилось: ";
 	rez << vv;
 	rez.close();
 }
 
-bool input_cf()
+bool lesson::input_cf()
 {
 	string buff("");
 
@@ -56,10 +80,11 @@ bool input_cf()
 		break;
 	}
 
-	return stoi(buff);
+	cf = stoi(buff);
+	return cf;
 }
 
-bool output_cf()
+bool lesson::output_cf()
 {
 	string buff("");
 
@@ -76,11 +101,11 @@ bool output_cf()
 		}
 		break;
 	}
-
-	return stoi(buff);
+	cf_1 = stoi(buff);
+	return cf_1;
 }
 
-int cin_natural(string name)
+int lesson::cin_natural(string name)
 {
 	bool check;
 	string buff = "";
@@ -107,7 +132,7 @@ int cin_natural(string name)
 	}
 }
 
-float cin_float(string name)
+float lesson::cin_float(string name)
 {
 	string buff = "";
 	float f;
@@ -133,3 +158,4 @@ float cin_float(string name)
 		return f;
 	}
 }
+
