@@ -1,5 +1,7 @@
 ﻿  lesson7.cpp
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(11,14): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(18,30): warning C4244: -=: преобразование "double" в "int", возможна потеря данных
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(31,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(16,14): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(23,30): warning C4244: -=: преобразование "double" в "int", возможна потеря данных
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(36,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(48,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\lesson7.cpp(60,19): warning C4018: >=: несоответствие типов со знаком и без знака
   lesson7.vcxproj -> C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\Debug\lesson7.exe
