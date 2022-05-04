@@ -4,13 +4,13 @@ int main()
 {
     setlocale(LC_ALL, "RUS");
     
-    Vbool A = itob( cin_int("A") );
+    MyByte A(cin_longlong("A"));
     cout << "A = ";
-    show(A);
+    A.show();
     Vbool B = input_byte();
     int pos = cin_int("pos");
 
-    A = change_byte(A, B, pos);
+    A.change_byte(B, pos);
 
-    show(A);
+    A.show();
 }

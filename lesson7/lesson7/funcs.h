@@ -8,9 +8,23 @@ using namespace std;
 
 typedef vector<bool> Vbool;
 
-void show(Vbool B);
+class MyByte
+{
+	Vbool bits;
+	bool pl_min;
+
+public:
+	MyByte();
+	MyByte(long long A);
+	Vbool itob(long long A);
+	void change_byte(Vbool newbyte, int n);
+	void show();
+};
+
+long long cin_longlong(string name = "");
 int cin_int(string name = "");
-Vbool itob(int A);
+
 Vbool push_forvard(Vbool A, bool b);
-Vbool change_byte(Vbool A, Vbool newbyte, int n);
 Vbool input_byte();
+Vbool pop_forward(Vbool A);
+Vbool reverse(Vbool A);

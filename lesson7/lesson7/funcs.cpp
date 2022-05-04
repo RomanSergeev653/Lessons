@@ -1,12 +1,28 @@
 #include "funcs.h"
-//class ZeroOne
-//int n;
-//Vbool V;
 
+MyByte::MyByte()
+{
+    bits = { 0,0,0,0,0,0,0,0 };
+    pl_min = 1;
+}
 
-Vbool itob(int A)
+MyByte::MyByte(long long A)
+{
+    if (A < 0)
+    {
+        pl_min = 0;
+        A *= -1;
+    }
+    else pl_min = 1;
+
+    bits = itob(A);
+}
+
+Vbool MyByte::itob(long long A)
 {
     Vbool B;
+    if (A == 0) B.push_back(0);
+
     int step = log2(A);
 
     for (; step >= 0; step--)
@@ -22,23 +38,19 @@ Vbool itob(int A)
         }
     }
 
+    while (B.size() % 8 != 0)
+    {
+        B = push_forvard(B, 0);
+    }
+
     return B;
 }
-
-void show(Vbool B)
-{
-    for (int i = 0; i < B.size(); i++)
-    {
-        cout << B[i];
-    }
-    cout << endl;
-}//Реализовать красивый вывод 1000 1010 1011 (пробелы)
 
 Vbool push_forvard(Vbool A, bool b)
 {
     Vbool PF;
     PF.push_back(b);
-    //baaaaaaaaaaaaa
+
     for (int i = 0; i < A.size(); i++)
     {
         PF.push_back(A[i]);
@@ -47,19 +59,70 @@ Vbool push_forvard(Vbool A, bool b)
     return PF;
 }
 
-Vbool change_byte(Vbool A, Vbool newbyte, int n)//
+void MyByte::show()
 {
-    for (int i = 0; i < 8; i++)
+    if (!pl_min) cout << "-";//minus 
+
+    for (int i = 0; i < bits.size(); i++)
     {
-        if (n + i >= A.size()) //Если биты не помещаются
+        cout << bits[i];
+
+        if ((bits.size() - (i + 1)) % 4 == 0)
         {
-            A = push_forvard(A, newbyte[i]);// то записываем их в начало
-            continue;
+            cout << " ";
         }
-        A[n + i] = newbyte[i];
+    }
+    cout << endl;
+}
+
+Vbool pop_forward(Vbool A)
+{
+    Vbool B;
+    for (int i = 1; i < A.size(); i++)
+    {
+        B.push_back(A[i]);
     }
 
-    return A;
+    return B;
+}
+
+Vbool reverse(Vbool A)
+{
+    Vbool B;
+    for (int i = A.size() - 1; i >= 0; i--)
+    {
+        B.push_back(A[i]);
+    }
+
+    return B;
+}
+
+void MyByte::change_byte(Vbool newbyte, int n)
+{
+    bool rev_check = false;
+
+    for (int i = 0; i < 8; i++)
+    {
+        if (n + i >= bits.size()) // если биты не помещаются
+        {
+            if (!rev_check)
+            {
+                rev_check = true;
+                newbyte = reverse(newbyte);
+            }
+
+            bits = push_forvard(bits, newbyte[0]); // то записываем их в начало
+            newbyte = pop_forward(newbyte);
+            continue;
+        }
+        bits[n + i] = newbyte[0];
+        newbyte = pop_forward(newbyte);
+    }
+
+    while (bits.size() % 8 != 0)
+    {
+        bits = push_forvard(bits, 0);
+    }
 }
 
 Vbool input_byte()
@@ -69,13 +132,13 @@ Vbool input_byte()
     while (true)
     {
         string buff = "";
-        cout << "Введите байт: ";
+        cout << "Ввведите байт: ";
         cin >> buff;
 
         if (buff.size() != 8)
         {
             system("cls");
-            cout << "wrong input\n";
+            cout << "Неверное значение, повторите попытку... \n";
             continue;
         }
 
@@ -84,8 +147,8 @@ Vbool input_byte()
             if ((buff[i] != '0') && (buff[i] != '1'))
             {
                 system("cls");
-                cout << "wrong input\n";
-                buff = "";//indetefy
+                cout << "Неверное значение, повторите попытку... \n";
+                buff.clear(); // идентификация
                 break;
             }
         }
@@ -118,6 +181,33 @@ int cin_int(string name)
         try
         {
             f = stoi(buff);
+        }
+        catch (invalid_argument e)
+        {
+            system("cls");
+            cout << "Введёное значение не является целым числом\n";
+            continue;
+        }
+        return f;
+    }
+}
+
+long long cin_longlong(string name)
+{
+    string buff = "";
+    long long f;
+
+    while (true)
+    {
+        if (name.length() > 0)
+        {
+            cout << "Введите целочисленную переменную " << name << ": ";
+        }
+        cin >> buff;
+
+        try
+        {
+            f = stoll(buff);
         }
         catch (invalid_argument e)
         {
