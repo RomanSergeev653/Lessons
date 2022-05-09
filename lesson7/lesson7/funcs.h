@@ -10,6 +10,7 @@ typedef vector<bool> Vbool;
 
 class MyByte
 {
+private:
 	Vbool bits;
 	bool pl_min;
 

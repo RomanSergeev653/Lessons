@@ -1,32 +1,8 @@
-#include "funcs.h"
+ï»¿#include "funcs.h"
 
-class lesson
+void analiz(string S, int& check, int& zap, int& tire, int& vv)
 {
-private:
-	int check{0};
-	int zap{0};
-	int tire{0};
-	int vv{0};
-
-public:
-
-	bool cf;
-	bool cf_1;
-
-	string S{""};
-	string filename{ "solution.txt" };
-
-	void analiz();
-	void vivod();
-	bool input_cf();
-	bool output_cf();
-	int cin_natural(string name = "");
-	float cin_float(string name = "");
-};
-
-void lesson::analiz()
-{
-	for (int i = 0; i < S.length() - 1; i++)
+	for (int i = 0; i < S.length() - 1; i++) // Ã±Ã Ã¬ Ã Ã­Ã Ã«Ã¨Ã§
 	{
 		if ((S[i] == ',') || (S[i] == '-'))
 		{
@@ -47,65 +23,76 @@ void lesson::analiz()
 	}
 }
 
-void lesson::vivod()
+void f_vivod(string filename, int check, int zap, int tire, int vv)
 {
 	ofstream rez(filename);
 
-	rez << "Êîë-âà \",\" è \"-\" ïîëó÷èëîñü: ";
+	rez << "ÐšÐ¾Ð»-Ð²Ð° \",\" Ð¸ \"-\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
 	rez << check;
-	rez << "\nÊîë-âî \",\" ïîëó÷èëîñü: ";
+	rez << "\nÐšÐ¾Ð»-Ð²Ð¾ \",\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
 	rez << zap;
-	rez << "\nÊîë-âî \"-\" ïîëó÷èëîñü: ";
+	rez << "\nÐšÐ¾Ð»-Ð²Ð¾ \"-\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
 	rez << tire;
-	rez << "\nÊîë-âî ñëó÷àåâ, êîãäà ñíà÷àëà \",\", à ïîòîì \"-\" ïîëó÷èëîñü: ";
+	rez << "\nÐšÐ¾Ð»-Ð²Ð¾ ÑÐ»ÑƒÑ‡Ð°ÐµÐ², ÐºÐ¾Ð³Ð´Ð° ÑÐ½Ð°Ñ‡Ð°Ð»Ð° \",\", Ð° Ð¿Ð¾Ñ‚Ð¾Ð¼ \"-\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
 	rez << vv;
 	rez.close();
 }
 
-bool lesson::input_cf()
+void c_vivod(int check, int zap, int tire, int vv)
+{
+	cout << "ÐšÐ¾Ð»-Ð²Ð° \",\" Ð¸ \"-\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
+	cout << check;
+	cout << "\nÐšÐ¾Ð»-Ð²Ð¾ \",\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
+	cout << zap;
+	cout << "\nÐšÐ¾Ð»-Ð²Ð¾ \"-\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
+	cout << tire;
+	cout << "\nÐšÐ¾Ð»-Ð²Ð¾ ÑÐ»ÑƒÑ‡Ð°ÐµÐ², ÐºÐ¾Ð³Ð´Ð° ÑÐ½Ð°Ñ‡Ð°Ð»Ð° \",\", Ð° Ð¿Ð¾Ñ‚Ð¾Ð¼ \"-\" Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ: ";
+	cout << vv << endl;
+}
+
+bool input_cf()
 {
 	string buff("");
 
 	while (true)
 	{
-		cout << "Âûáåðèòå òèï ââîäà äàííûõ. 0 - Êîíñîëü, 1 - Ôàéë\n";
+		cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ‚Ð¸Ð¿ Ð²Ð²Ð¾Ð´Ð° Ð´Ð°Ð½Ð½Ñ‹Ñ…. 0 - ÐšÐ¾Ð½ÑÐ¾Ð»ÑŒ, 1 - Ð¤Ð°Ð¹Ð»\n";
 		cin >> buff;
 
 		if (buff != "0" && buff != "1")
 		{
 			system("cls");
-			cout << "Íåâåðíûå ââîäíûå äàííûå, ïîïðîáóéòå ñíîâà...\n";
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ðµ Ð²Ð²Ð¾Ð´Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ, Ð¿Ð¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°...\n";
 			continue;
 		}
 		break;
 	}
 
-	cf = stoi(buff);
-	return cf;
+	return stoi(buff);
 }
 
-bool lesson::output_cf()
+bool output_cf()
 {
 	string buff("");
 
 	while (true)
 	{
-		cout << "Âûáåðèòå òèï âûâîäà äàííûõ. 0 - Êîíñîëü, 1 - Ôàéë\n";
+		cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ‚Ð¸Ð¿ Ð²Ñ‹Ð²Ð¾Ð´Ð° Ð´Ð°Ð½Ð½Ñ‹Ñ…. 0 - ÐšÐ¾Ð½ÑÐ¾Ð»ÑŒ, 1 - Ð¤Ð°Ð¹Ð»\n";
 		cin >> buff;
 
 		if (buff != "0" && buff != "1")
 		{
 			system("cls");
-			cout << "Íåâåðíûå ââîäíûå äàííûå, ïîïðîáóéòå ñíîâà...\n";
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ðµ Ð²Ð²Ð¾Ð´Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ, Ð¿Ð¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°...\n";
 			continue;
 		}
 		break;
 	}
-	cf_1 = stoi(buff);
-	return cf_1;
+
+	return stoi(buff);
 }
 
-int lesson::cin_natural(string name)
+int cin_natural(string name)
 {
 	bool check;
 	string buff = "";
@@ -113,7 +100,7 @@ int lesson::cin_natural(string name)
 	while (true)
 	{
 		check = false;
-		cout << "Ââåäèòå ïåðåìåííóþ " << name << ": ";
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½ÑƒÑŽ " << name << ": ";
 		cin >> buff;
 
 		for (int i = 0; i < buff.length(); i++)
@@ -121,7 +108,7 @@ int lesson::cin_natural(string name)
 			if (buff[i] < 48 || buff[i] > 57 || buff == "0")
 			{
 				system("cls");
-				cout << buff << " - íå ÿâëÿåòñÿ íàòóðàëüíûì ÷èñëîì\n";
+				cout << buff << " - Ð½Ðµ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð½Ð°Ñ‚ÑƒÑ€Ð°Ð»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼\n";
 				check = true;
 				break;
 			}
@@ -132,7 +119,7 @@ int lesson::cin_natural(string name)
 	}
 }
 
-float lesson::cin_float(string name)
+float cin_float(string name)
 {
 	string buff = "";
 	float f;
@@ -141,7 +128,7 @@ float lesson::cin_float(string name)
 	{
 		if (name.length() > 0)
 		{
-			cout << "Ââåäèòå ïåðåìåííóþ " << name << ": ";
+			cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½ÑƒÑŽ " << name << ": ";
 		}
 		cin >> buff;
 
@@ -152,10 +139,9 @@ float lesson::cin_float(string name)
 		catch (invalid_argument e)
 		{
 			system("cls");
-			cout << "Ââåä¸íîå çíà÷åíèå íå ÿâëÿåòñÿ äåéñòâèòåëüíûì ÷èñëîì\n";
+			cout << "Ð’Ð²ÐµÐ´Ñ‘Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð½Ðµ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼\n";
 			continue;
 		}
 		return f;
 	}
 }
-

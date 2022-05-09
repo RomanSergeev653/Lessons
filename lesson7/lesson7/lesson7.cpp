@@ -3,7 +3,7 @@
 int main()
 {
     setlocale(LC_ALL, "RUS");
-    
+
     MyByte A(cin_longlong("A"));
     cout << "A = ";
     A.show();
