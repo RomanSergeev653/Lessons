@@ -1,89 +1,180 @@
 ﻿#include <iostream>
-#include <vector>
+#include <string>
 
 using namespace std;
 
-typedef vector<int> Vint;
-
-// 2 6 7 4
-// 2 6     7 4
-// 2   6   7   4
-
-
-Vint MergeSort(Vint Arr)
+class Node
 {
-    if (Arr.size() == 1) return Arr;
+private:
+	string FIO;
+	string Work_position;
+	string Adress;
 
-    Vint LeftArr;
-    Vint RigthArr;
+public:
+	Node* next;
+	Node* prev;
 
-    for (int i = 0; i < Arr.size(); i++)
-    {
-        if (i < Arr.size() / 2)
-        {
-            LeftArr.push_back(Arr[i]);
-        }
-        else
-        {
-            RigthArr.push_back(Arr[i]);
-        }
-    }
+	Node(string FIO = "", string Work_position = "", string Adress = "")
+	{
+		this->FIO = FIO;
+		this->Work_position = Work_position;
+		this->Adress = Adress;
 
-    LeftArr = MergeSort(LeftArr);
-    RigthArr = MergeSort(RigthArr);
+		this->next = 0;
+		this->prev = 0;
+	}
 
-    int countLeft = 0;
-    int countRigth = 0;
-    Vint sortedArr;
+	string get_FIO()
+	{
+		return FIO;
+	}
+	string get_Work_position()
+	{
+		return Work_position;
+	}
+	string get_Adress()
+	{
+		return Adress;
+	}
 
-    while (true)
-    {
-        if ((countLeft == LeftArr.size()) && (countRigth == RigthArr.size()))
-        {
-            return sortedArr;
-        }
+	void show()
+	{
+		cout << FIO << " " << Work_position << " " << Adress << endl;
+	}
 
-        if (countLeft == LeftArr.size())
-        {
-            sortedArr.push_back(RigthArr[countRigth]);
-            countRigth++;
-            continue;
-        }
+	void reset()
+	{
+		//написать функцию
+	}
+};
 
-        if (countRigth == RigthArr.size())
-        {
-            sortedArr.push_back(LeftArr[countLeft]);
-            countLeft++;
-            continue;
-        }
+class List
+{
+private:
+	Node* first;
+	Node* last;
 
-        if (LeftArr[countLeft] > RigthArr[countRigth])
-        {
-            sortedArr.push_back(RigthArr[countRigth]);
-            countRigth++;
-        }
-        else
-        {
-            sortedArr.push_back(LeftArr[countLeft]);
-            countLeft++;
-        }
-    }
+	Node** push(Node** A, int count, Node* new_element)
+	{
+		Node** B = new Node * [count + 1];//массив на один элемнт больше
 
-}
+		for (size_t i = 0; i < count; i++)//копируем старый массив
+		{
+			B[i] = A[i];
+		}
+		B[count - 1] = new_element;//добавляем в конец новый элемент
+
+		return B;//возвращаем новый массив
+	}
+
+public:
+	List()
+	{
+		first = 0;
+		last = 0;
+	}
+
+	bool is_empty()
+	{
+		return first == 0;
+	}
+
+	void push_back(string FIO, string Work_position, string Adress)
+	{
+		Node* N = new Node(FIO, Work_position, Adress);
+		
+		if (is_empty())
+		{
+			first = N;
+			last = N;
+		}
+		else
+		{
+			last->next = N;
+			N->prev = last;
+			last = N;
+		}
+	}
+
+	Node** find_Work_position(string W)
+	{
+		Node* N = first;
+		Node** Arr = 0;
+		int count = 0;
+
+		while (N != 0)
+		{
+			if (N->get_Work_position() == W)
+			{
+				Arr = push(Arr, count, N);
+				count++;
+			}
+
+			N = N->next;
+		}
+
+		return Arr;
+	}
+
+	Node** find_FIO(string W)
+	{
+		Node* N = first;
+		Node** Arr = 0;
+		int count = 0;
+
+		while (N != 0)
+		{
+			if (N->get_FIO() == W)
+			{
+				Arr = push(Arr, count, N);
+				count++;
+			}
+
+			N = N->next;
+		}
+
+		return Arr;
+	}
+
+	Node** find_Adress(string W)
+	{
+		Node* N = first;
+		Node** Arr = 0;
+		int count = 0;
+
+		while (N != 0)
+		{
+			if (N->get_Adress() == W)
+			{
+				Arr = push(Arr, count, N);
+				count++;
+			}
+
+			N = N->next;
+		}
+
+		return Arr;
+	}
+
+	void show()
+	{
+		Node* N = first;
+
+		while (N != 0)
+		{
+			N->show();
+
+			N = N->next;
+		}
+	}
+
+	void reset()
+	{
+		//написать функцию
+	}
+};
 
 int main()
 {
-    Vint A;
-    A.push_back(2);
-    A.push_back(6);
-    A.push_back(4);
-    A.push_back(7);
 
-    A = MergeSort(A);
-
-    for (int i = 0; i < A.size(); i++)
-    {
-        cout << A[i] << " ";
-    }
-    cout << endl;
 }
