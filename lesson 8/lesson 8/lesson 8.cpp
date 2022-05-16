@@ -44,7 +44,9 @@ public:
 
 	void reset()
 	{
-		//написать функцию
+		FIO = "";
+		Work_position = "";
+		Adress = "";
 	}
 };
 
@@ -65,6 +67,57 @@ private:
 		B[count - 1] = new_element;//добавляем в конец новый элемент
 
 		return B;//возвращаем новый массив
+	}
+
+	void push_node(Node* N)
+	{
+		if (is_empty())
+		{
+			first = N;
+			last = N;
+		}
+		else
+		{
+			last->next = N;
+			N->prev = last;
+			last = N;
+		}
+	}
+
+	void insert_node(Node* N, int Number)
+	{
+		Node* C = first;
+
+		if (Number == 0)
+		{
+			N->next = first;
+			first->prev = N;
+			first = N;
+			return;
+		}
+
+		for (size_t i = 0; i < Number; i++)
+		{
+			if (C == 0)
+			{
+				cout << "Индекс " << Number << " не существует";
+				break;
+			}
+			if (i + 1 == Number)
+			{
+				if (C == last)
+				{
+					return push_node(N);
+				}
+
+				N->next = C->next;
+				C->next->prev = N;
+				N->prev = C;
+				C->next = N;
+			}
+
+			C = C->next;
+		}
 	}
 
 public:
@@ -159,22 +212,120 @@ public:
 	void show()
 	{
 		Node* N = first;
+		int i = 1;
 
 		while (N != 0)
 		{
+			cout << i << ")";
 			N->show();
+
+			N = N->next;
+			i++;
+		}
+		cout << endl;
+	}
+
+	void rshow()
+	{
+		Node* N = last;
+		int i = 1;
+
+		while (N != 0)
+		{
+			cout << i << ")";
+			N->show();
+
+			N = N->prev;
+			i++;
+		}
+		cout << endl;
+	}
+
+	void reset()
+	{
+		Node* N = first;
+
+		while (N != 0)
+		{
+			N->reset();
 
 			N = N->next;
 		}
 	}
 
-	void reset()
+	void insert(int Number, string FIO, string Work_position, string Adress)
 	{
-		//написать функцию
+		Node* N = new Node(FIO, Work_position, Adress);
+		Node* C = first;
+
+		for (size_t i = 0; i < Number; i++)
+		{
+			if (C == 0)
+			{
+				cout << "Индекс " << Number << " не существует";
+				break;
+			}
+			if (i + 1 == Number)
+			{
+				N->next = C->next;
+				C->next->prev = N;
+				N->prev = C;
+				C->next = N;
+			}
+
+			C = C->next;
+		}
+	}
+
+	Node* pop(int Number)//Учитывать начало и конец списка
+	{
+		Node* C = first;
+
+		for (size_t i = 0; i < Number; i++)
+		{
+			if (C == 0)
+			{
+				cout << "Индекс " << Number << " не существует";
+				break;
+			}
+			if (i + 1 == Number)
+			{
+				C->prev->next = C->next;
+				C->next->prev = C->prev;
+
+				C->next = 0;
+				C->prev = 0;
+
+				return C;
+			}
+
+			C = C->next;
+		}
+	}
+
+	void Swap_el(int N1, int N2)
+	{// 1 2  4 5  7 8 9 10
+		if (N1 > N2) swap(N1, N2);
+
+		Node* Ptr2 = pop(N2);
+		Node* Ptr1 = pop(N1);
+
+		insert_node(Ptr2, N1 - 1);
+		insert_node(Ptr1, N2 - 1);
 	}
 };
 
 int main()
 {
+	setlocale(LC_ALL, "Rus");
+	List A;
+	Node* B;
 
+	A.push_back("Roma", "AAAAA", "BBBBB");
+	A.push_back("Vanya", "AAAAA", "BBBBB");
+	A.push_back("Anna", "AAAAA", "BBBBB");
+	A.push_back("Roma", "AAAAA", "BBBBB");
+
+	A.Swap_el(1, 3);
+	A.show();
 }
