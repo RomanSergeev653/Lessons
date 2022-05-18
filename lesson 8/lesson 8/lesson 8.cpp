@@ -88,7 +88,7 @@ private:
 	{
 		Node* C = first;
 
-		if (Number == 0)
+		if (Number == 0)// для начала 
 		{
 			N->next = first;
 			first->prev = N;
@@ -105,7 +105,7 @@ private:
 			}
 			if (i + 1 == Number)
 			{
-				if (C == last)
+				if (C == last)//для конца
 				{
 					return push_node(N);
 				}
@@ -258,6 +258,14 @@ public:
 		Node* N = new Node(FIO, Work_position, Adress);
 		Node* C = first;
 
+		if (Number == 0)// для начала 
+		{
+			N->next = first;
+			first->prev = N;
+			first = N;
+			return;
+		}
+
 		for (size_t i = 0; i < Number; i++)
 		{
 			if (C == 0)
@@ -265,8 +273,14 @@ public:
 				cout << "Индекс " << Number << " не существует";
 				break;
 			}
+
 			if (i + 1 == Number)
 			{
+				if (C == last)//для конца
+				{
+					return push_node(N);
+				}
+
 				N->next = C->next;
 				C->next->prev = N;
 				N->prev = C;
@@ -281,6 +295,16 @@ public:
 	{
 		Node* C = first;
 
+		if (Number == 0)
+		{
+			first->next->prev = 0;
+			first = first->next;
+
+			C->next = 0;
+			return C;
+			
+		}
+
 		for (size_t i = 0; i < Number; i++)
 		{
 			if (C == 0)
@@ -290,6 +314,15 @@ public:
 			}
 			if (i + 1 == Number)
 			{
+				if (C == last)
+				{
+					C->prev->next = 0;
+					last = C->prev;
+					C->prev = 0;
+
+					return C;
+				}
+
 				C->prev->next = C->next;
 				C->next->prev = C->prev;
 
@@ -307,11 +340,28 @@ public:
 	{// 1 2  4 5  7 8 9 10
 		if (N1 > N2) swap(N1, N2);
 
-		Node* Ptr2 = pop(N2);
-		Node* Ptr1 = pop(N1);
+		Node* Ptr2 = pop(N2-1);
+		Node* Ptr1 = pop(N1-1);
 
 		insert_node(Ptr2, N1 - 1);
 		insert_node(Ptr1, N2 - 1);
+	}
+
+	void Sort_Work_position()
+	{
+		Node* C = first;
+		Node* C2 = first->next;
+
+		for (size_t i = 0; C != last; i++)
+		{
+			for (size_t j = 0;C2 != 0 ; j++)
+			{
+				if (C->get_Work_position() < C2->get_Work_position())
+				{
+					Swap_el(i, j);
+				}
+			}
+		}
 	}
 };
 
@@ -321,9 +371,9 @@ int main()
 	List A;
 	Node* B;
 
-	A.push_back("Roma", "AAAAA", "BBBBB");
-	A.push_back("Vanya", "AAAAA", "BBBBB");
-	A.push_back("Anna", "AAAAA", "BBBBB");
+	A.push_back("Roma", "CEO", "BBBBB");
+	A.push_back("Vanya", "Director", "BBBBB");
+	A.push_back("Anna", "Worker", "BBBBB");
 	A.push_back("Roma", "AAAAA", "BBBBB");
 
 	A.Swap_el(1, 3);
