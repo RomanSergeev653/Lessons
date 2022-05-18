@@ -39,7 +39,7 @@ public:
 
 	void show()
 	{
-		cout << FIO << " " << Work_position << " " << Adress << endl;
+		cout << FIO << "\t" << Work_position << "\t" << Adress << endl;
 	}
 
 	void reset()
@@ -96,28 +96,38 @@ private:
 			return;
 		}
 
-		for (size_t i = 0; i < Number; i++)
+		for (size_t i = 0; i <= Number; i++)
 		{
 			if (C == 0)
 			{
 				cout << "Индекс " << Number << " не существует";
 				break;
 			}
-			if (i + 1 == Number)
+			if (i == Number)
 			{
-				if (C == last)//для конца
-				{
-					return push_node(N);
-				}
-
-				N->next = C->next;
-				C->next->prev = N;
-				N->prev = C;
-				C->next = N;
+				N->next = C;
+				C->prev->next = N;
+				N->prev = C->prev;
+				C->prev = N;
+			}
+			if (i + 1 == Number && C == last)//для конца
+			{
+				return push_node(N);
 			}
 
 			C = C->next;
 		}
+	}
+
+	void Swap_el(int N1, int N2)
+	{
+		if (N1 > N2) swap(N1, N2);
+
+		Node* Ptr2 = pop(N2);
+		Node* Ptr1 = pop(N1);
+
+		insert_node(Ptr2, N1);
+		insert_node(Ptr1, N2);
 	}
 
 public:
@@ -266,7 +276,7 @@ public:
 			return;
 		}
 
-		for (size_t i = 0; i < Number; i++)
+		for (size_t i = 0; i <= Number; i++)
 		{
 			if (C == 0)
 			{
@@ -274,17 +284,17 @@ public:
 				break;
 			}
 
-			if (i + 1 == Number)
+			if (i == Number)
 			{
 				if (C == last)//для конца
 				{
 					return push_node(N);
 				}
 
-				N->next = C->next;
-				C->next->prev = N;
-				N->prev = C;
-				C->next = N;
+				N->next = C;
+				C->prev->next = N;
+				N->prev = C->prev;
+				C->prev = N;
 			}
 
 			C = C->next;
@@ -305,14 +315,14 @@ public:
 			
 		}
 
-		for (size_t i = 0; i < Number; i++)
+		for (size_t i = 0; i <= Number; i++)
 		{
 			if (C == 0)
 			{
 				cout << "Индекс " << Number << " не существует";
 				break;
 			}
-			if (i + 1 == Number)
+			if (i == Number)
 			{
 				if (C == last)
 				{
@@ -336,31 +346,63 @@ public:
 		}
 	}
 
-	void Swap_el(int N1, int N2)
-	{// 1 2  4 5  7 8 9 10
-		if (N1 > N2) swap(N1, N2);
-
-		Node* Ptr2 = pop(N2-1);
-		Node* Ptr1 = pop(N1-1);
-
-		insert_node(Ptr2, N1 - 1);
-		insert_node(Ptr1, N2 - 1);
-	}
-
 	void Sort_Work_position()
 	{
 		Node* C = first;
-		Node* C2 = first->next;
+		
+		for (size_t i = 0; C != last; i++)
+		{
+			Node* C2 = C->next;
+			for (size_t j = i+1; C2 != 0; j++)
+			{
+				if (C->get_Work_position() > C2->get_Work_position())
+				{
+					Swap_el(i, j);
+					swap(C, C2);
+				}
+				C2 = C2->next;
+			}
+			C = C->next;
+		}
+	}
+
+	void Sort_FIO()
+	{
+		Node* C = first;
 
 		for (size_t i = 0; C != last; i++)
 		{
-			for (size_t j = 0;C2 != 0 ; j++)
+			Node* C2 = C->next;
+			for (size_t j = i + 1; C2 != 0; j++)
 			{
-				if (C->get_Work_position() < C2->get_Work_position())
+				if (C->get_FIO() > C2->get_FIO())
 				{
 					Swap_el(i, j);
+					swap(C, C2);
 				}
+				C2 = C2->next;
 			}
+			C = C->next;
+		}
+	}
+
+	void Sort_Adress()
+	{
+		Node* C = first;
+
+		for (size_t i = 0; C != last; i++)
+		{
+			Node* C2 = C->next;
+			for (size_t j = i + 1; C2 != 0; j++)
+			{
+				if (C->get_Adress() > C2->get_Adress())
+				{
+					Swap_el(i, j);
+					swap(C, C2);
+				}
+				C2 = C2->next;
+			}
+			C = C->next;
 		}
 	}
 };
@@ -368,14 +410,66 @@ public:
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-	List A;
-	Node* B;
 
-	A.push_back("Roma", "CEO", "BBBBB");
-	A.push_back("Vanya", "Director", "BBBBB");
-	A.push_back("Anna", "Worker", "BBBBB");
-	A.push_back("Roma", "AAAAA", "BBBBB");
+	/*
+	int switch_on;
+	bool T = true;
 
-	A.Swap_el(1, 3);
-	A.show();
+	while (T)
+	{
+		switch (switch_on) 
+		{
+		case 9: 
+		{
+			T = 0;
+			break;
+		}
+
+		default:
+		{
+			break;
+		}
+		}
+	}
+
+	cout << "1) Вывести список со всеми данными\n";
+	cout << "2) Отсортировать элементы по параметру\n";
+
+	cin >> switch_on;
+
+	switch (switch_on)
+	{
+	case 1:
+	{
+		A.show();
+		break;
+	}
+	case 2:
+	{
+		cout << "1) Именам\n2) Должности\n3) Адресам";
+		cin >> switch_on;
+		switch (switch_on)
+		{
+		case 1:
+		{
+			//тут будет сортировка по именам
+			break;
+		}
+		case 2:
+		{
+			//тут будет сортировка по должности
+			break;
+		}
+		case 3:
+		{
+			//тут будет сортировка по адресу
+			break;
+		}
+		default:
+			break;
+		}
+	}
+	default:
+		break;
+	}*/
 }
