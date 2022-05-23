@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -37,6 +38,19 @@ public:
 		return Adress;
 	}
 
+	void set_FIO(string FIO)
+	{
+		this->FIO = FIO;
+	}
+	void set_Work_position(string Work_position)
+	{
+		this->Work_position = Work_position;
+	}
+	void set_Adress(string Adress)
+	{
+		this->Adress = Adress;
+	}
+
 	void show()
 	{
 		cout << FIO << "\t" << Work_position << "\t" << Adress << endl;
@@ -47,6 +61,12 @@ public:
 		FIO = "";
 		Work_position = "";
 		Adress = "";
+	}
+
+	string save()
+	{
+		//этот элемент удалён cout
+		return FIO + "; " + Work_position + "; " + Adress;
 	}
 };
 
@@ -64,7 +84,7 @@ private:
 		{
 			B[i] = A[i];
 		}
-		B[count - 1] = new_element;//добавляем в конец новый элемент
+		B[count] = new_element;//добавляем в конец новый элемент
 
 		return B;//возвращаем новый массив
 	}
@@ -145,7 +165,7 @@ public:
 	void push_back(string FIO, string Work_position, string Adress)
 	{
 		Node* N = new Node(FIO, Work_position, Adress);
-		
+
 		if (is_empty())
 		{
 			first = N;
@@ -171,6 +191,7 @@ public:
 			{
 				Arr = push(Arr, count, N);
 				count++;
+				Arr[count - 1]->show();
 			}
 
 			N = N->next;
@@ -191,6 +212,7 @@ public:
 			{
 				Arr = push(Arr, count, N);
 				count++;
+				Arr[count - 1]->show();
 			}
 
 			N = N->next;
@@ -211,6 +233,7 @@ public:
 			{
 				Arr = push(Arr, count, N);
 				count++;
+				Arr[count - 1]->show();
 			}
 
 			N = N->next;
@@ -312,7 +335,7 @@ public:
 
 			C->next = 0;
 			return C;
-			
+
 		}
 
 		for (size_t i = 0; i <= Number; i++)
@@ -349,11 +372,11 @@ public:
 	void Sort_Work_position()
 	{
 		Node* C = first;
-		
+
 		for (size_t i = 0; C != last; i++)
 		{
 			Node* C2 = C->next;
-			for (size_t j = i+1; C2 != 0; j++)
+			for (size_t j = i + 1; C2 != 0; j++)
 			{
 				if (C->get_Work_position() > C2->get_Work_position())
 				{
@@ -405,71 +428,270 @@ public:
 			C = C->next;
 		}
 	}
+
+	void load_List(string file_name)
+	{
+		ifstream file(file_name);
+		string* str;
+		string buff;
+		int N = 0;
+
+		while (!file.eof())
+		{
+			getline(file, buff);
+			N++;
+		}
+
+		file.seekg(0, ios::beg);
+
+		str = new string[N];
+
+		for (size_t i = 0; i < N; i++)
+		{
+			getline(file, str[i]);
+
+			string FIO;
+			string Work_position;
+			string Adress;
+
+			FIO = str[i].substr(0, str[i].find("; "));
+			str[i].erase(0, str[i].find("; ") + 2);
+
+			Work_position = str[i].substr(0, str[i].find("; "));
+			str[i].erase(0, str[i].find("; ") + 2);
+
+			Adress = str[i];
+
+			push_back(FIO, Work_position, Adress);
+		}
+
+		file.close();
+
+		//ofstream F(file_name, ios_base::trunc);
+		//F.close();
+
+		return;
+	}
+
+	void Change(int Number, string FIO, string Work_position, string Adress)
+	{
+		Node* C = first;
+
+		for (size_t i = 0; i <= Number; i++)
+		{
+			if (C == 0)
+			{
+				cout << "Индекс " << Number << " не существует";
+				break;
+			}
+
+			if (i == Number)
+			{
+				C->set_FIO(FIO);
+				C->set_Work_position(Work_position);
+				C->set_Adress(Adress);
+
+				return;
+			}
+
+			C = C->next;
+		}
+	}
+
+	void Save(string filename)
+	{
+		ofstream file(filename, ios_base::trunc);
+		string buff;
+		Node* C = first;
+
+		while (C != 0)
+		{
+			buff = C->save();
+			file << buff << endl;
+		}
+
+		
+	}
 };
 
 int main()
 {
 	setlocale(LC_ALL, "Rus");
+	system("chcp 1251");
+	system("cls");
 
-	/*
+	List A;
+	A.load_List("data.txt");
+
 	int switch_on;
 	bool T = true;
 
-	while (T)
-	{
-		switch (switch_on) 
-		{
-		case 9: 
-		{
-			T = 0;
-			break;
-		}
-
-		default:
-		{
-			break;
-		}
-		}
-	}
-
-	cout << "1) Вывести список со всеми данными\n";
-	cout << "2) Отсортировать элементы по параметру\n";
+	cout << "1) Добавить новый элемент\n";
+	cout << "2) Печать в прямом порядке\n";
+	cout << "3) Печать в обратном порядке\n";
+	cout << "4) Поиск\n";
+	cout << "5) Сортировка\n";
+	cout << "6) Изменение\n";
+	cout << "7) Удаление\n";
+	cout << "8) Сброс\n";
+	cout << "9) Выход\n";
 
 	cin >> switch_on;
-
 	switch (switch_on)
 	{
 	case 1:
 	{
+		int number;
+		string FIO;
+		string Work_position;
+		string Adress;
+
+		cout << "Number: ";
+		cin >> number;
+		cin.ignore();
+		cout << "FIO: ";
+		getline(cin, FIO);
+		cout << "Work position: ";
+		getline(cin, Work_position);
+		cout << "Adress: ";
+		getline(cin, Adress);
+
+		A.insert(number - 1, FIO, Work_position, Adress);
 		A.show();
 		break;
 	}
 	case 2:
 	{
-		cout << "1) Именам\n2) Должности\n3) Адресам";
-		cin >> switch_on;
-		switch (switch_on)
+		cout << "Печать в прямом порядке\n";
+		A.show();
+		break;
+	}
+	case 3:
+	{
+		cout << "Печать в обратном порядке\n";
+		A.rshow();
+		break;
+	}
+	case 4:
+	{
+		cout << "1) Именам\n2) Должности\n3) Адресам\n";
+		int S;
+		cin >> S;
+		cin.ignore();
+		switch (S)
 		{
 		case 1:
 		{
-			//тут будет сортировка по именам
+			string W;
+			cout << "Введите имя для поиска: ";
+			getline(cin, W);
+			cout << A.find_FIO(W) << endl;
+
 			break;
 		}
 		case 2:
 		{
-			//тут будет сортировка по должности
+			string W;
+			cout << "Введите должность для поиска: ";
+			getline(cin, W);
+			cout << A.find_Work_position(W) << endl;
+
 			break;
 		}
 		case 3:
 		{
-			//тут будет сортировка по адресу
+			string W;
+			cout << "Введите адрес для поиска: ";
+			getline(cin, W);
+			cout << A.find_Adress(W) << endl;
+
 			break;
 		}
 		default:
 			break;
 		}
+
+		break;
+	}
+	case 5:
+	{
+		cout << "1) Именам\n2) Должности\n3) Адресам\n";
+		int S;
+		cin >> S;
+		switch (S)
+		{
+		case 1:
+		{
+			A.Sort_FIO();
+			A.show();
+
+			break;
+		}
+		case 2:
+		{
+			A.Sort_Work_position();
+			A.show();
+
+			break;
+		}
+		case 3:
+		{
+			A.Sort_Adress();
+			A.show();
+
+			break;
+		}
+		default:
+			break;
+		}
+
+		break;
+	}
+	case 6:
+	{
+		int Number;
+		string FIO;
+		string Work_position;
+		string Adress;
+
+		cout << "Введите номер изменяемого элемента\n";
+		cin >> Number;
+
+		cin.ignore();
+		cout << "FIO: ";
+		getline(cin, FIO);
+		cout << "Work position: ";
+		getline(cin, Work_position);
+		cout << "Adress: ";
+		getline(cin, Adress);
+
+		A.Change(Number - 1, FIO, Work_position, Adress);
+		A.show();
+		break;
+	}
+	case 7:
+	{
+		int number;
+		cout << "Введите номер для удаления: ";
+		cin >> number;
+		A.pop(number - 1);
+		A.show();
+
+		break;
+	}
+	case 8:
+	{
+		A.reset();
+		A.show();
+
+		break;
+	}
+	case 9:
+	{
+		//сохранить изменения?
+		return 0;
 	}
 	default:
 		break;
-	}*/
+	}
 }

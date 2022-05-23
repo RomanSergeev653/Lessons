@@ -1,7 +1,6 @@
 ﻿  lesson 8.cpp
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(360,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(380,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(400,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(414,8): warning C4101: B: неиспользованная локальная переменная
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(347): warning C4715: List::pop: значение возвращается не при всех путях выполнения
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(377,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(397,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(417,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\lesson 8\lesson 8.cpp(364): warning C4715: List::pop: значение возвращается не при всех путях выполнения
   lesson 8.vcxproj -> C:\Users\ДНС\Documents\GitHub\Lessons\lesson 8\x64\Debug\lesson 8.exe
