@@ -1,4 +1,4 @@
-#include "funcs.h"
+п»ї#include "funcs.h"
 
 MyByte::MyByte()
 {
@@ -103,7 +103,7 @@ void MyByte::change_byte(Vbool newbyte, int n)
 
     for (int i = 0; i < 8; i++)
     {
-        if (n + i >= bits.size()) // если биты не помещаются
+        if (bits.size() - 1 - n + i >= bits.size()) // РµСЃР»Рё Р±РёС‚С‹ РЅРµ РїРѕРјРµС‰Р°СЋС‚СЃСЏ
         {
             if (!rev_check)
             {
@@ -111,11 +111,11 @@ void MyByte::change_byte(Vbool newbyte, int n)
                 newbyte = reverse(newbyte);
             }
 
-            bits = push_forvard(bits, newbyte[0]); // то записываем их в начало
+            bits = push_forvard(bits, newbyte[0]); // С‚Рѕ Р·Р°РїРёСЃС‹РІР°РµРј РёС… РІ РЅР°С‡Р°Р»Рѕ
             newbyte = pop_forward(newbyte);
             continue;
         }
-        bits[n + i] = newbyte[0];
+        bits[bits.size() - 1 - n + i] = newbyte[0];
         newbyte = pop_forward(newbyte);
     }
 
@@ -132,13 +132,13 @@ Vbool input_byte()
     while (true)
     {
         string buff = "";
-        cout << "Ввведите байт: ";
+        cout << "Р’РІРІРµРґРёС‚Рµ Р±Р°Р№С‚: ";
         cin >> buff;
 
         if (buff.size() != 8)
         {
             system("cls");
-            cout << "Неверное значение, повторите попытку... \n";
+            cout << "РќРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ, РїРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ... \n";
             continue;
         }
 
@@ -147,8 +147,8 @@ Vbool input_byte()
             if ((buff[i] != '0') && (buff[i] != '1'))
             {
                 system("cls");
-                cout << "Неверное значение, повторите попытку... \n";
-                buff.clear(); // идентификация
+                cout << "РќРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ, РїРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ... \n";
+                buff.clear(); // РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ
                 break;
             }
         }
@@ -174,7 +174,7 @@ int cin_int(string name)
     {
         if (name.length() > 0)
         {
-            cout << "Введите целочисленную переменную " << name << ": ";
+            cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕС‡РёСЃР»РµРЅРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ " << name << ": ";
         }
         cin >> buff;
 
@@ -185,7 +185,7 @@ int cin_int(string name)
         catch (invalid_argument e)
         {
             system("cls");
-            cout << "Введёное значение не является целым числом\n";
+            cout << "Р’РІРµРґС‘РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РЅРµ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј С‡РёСЃР»РѕРј\n";
             continue;
         }
         return f;
@@ -201,7 +201,7 @@ long long cin_longlong(string name)
     {
         if (name.length() > 0)
         {
-            cout << "Введите целочисленную переменную " << name << ": ";
+            cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕС‡РёСЃР»РµРЅРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ " << name << ": ";
         }
         cin >> buff;
 
@@ -212,7 +212,7 @@ long long cin_longlong(string name)
         catch (invalid_argument e)
         {
             system("cls");
-            cout << "Введёное значение не является целым числом\n";
+            cout << "Р’РІРµРґС‘РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РЅРµ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј С‡РёСЃР»РѕРј\n";
             continue;
         }
         return f;

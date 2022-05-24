@@ -1,8 +1,7 @@
 ﻿  funcs.cpp
 C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(26,14): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(33,30): warning C4244: -=: преобразование "double" в "__int64", возможна потеря данных
+C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(33,21): warning C4244: -=: преобразование "double" в "__int64", возможна потеря данных
 C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(54,23): warning C4018: <: несоответствие типов со знаком и без знака
 C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(66,23): warning C4018: <: несоответствие типов со знаком и без знака
 C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(81,23): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\lesson7\funcs.cpp(106,19): warning C4018: >=: несоответствие типов со знаком и без знака
   lesson7.vcxproj -> C:\Users\ДНС\Documents\GitHub\Lessons\lesson7\Debug\lesson7.exe

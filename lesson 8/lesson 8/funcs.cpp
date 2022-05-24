@@ -1,4 +1,4 @@
-#include "funcs.h"
+ï»¿#include "funcs.h"
 
 Node::Node(string FIO = "", string Work_position = "", string Adress = "")
 {
@@ -50,7 +50,7 @@ void Node::reset()
 
 string Node::save()
 {
-	cout << "Ýëåìåíò " << FIO << "... óäàë¸í è âîçâðàù¸í â êó÷ó\n";
+	cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ " << FIO << "... ÑƒÐ´Ð°Ð»Ñ‘Ð½ Ð¸ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ñ‘Ð½ Ð² ÐºÑƒÑ‡Ñƒ\n";
 	return FIO + "; " + Work_position + "; " + Adress;
 }
 
@@ -58,15 +58,15 @@ string Node::save()
 
 Node** List::push(Node** A, int count, Node* new_element)
 {
-	Node** B = new Node * [count + 1];//ìàññèâ íà îäèí ýëåìíò áîëüøå
+	Node** B = new Node * [count + 1];//Ð¼Ð°ÑÑÐ¸Ð² Ð½Ð° Ð¾Ð´Ð¸Ð½ ÑÐ»ÐµÐ¼Ð½Ñ‚ Ð±Ð¾Ð»ÑŒÑˆÐµ
 
-	for (size_t i = 0; i < count; i++)//êîïèðóåì ñòàðûé ìàññèâ
+	for (size_t i = 0; i < count; i++)//ÐºÐ¾Ð¿Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ð°Ñ€Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð²
 	{
 		B[i] = A[i];
 	}
-	B[count] = new_element;//äîáàâëÿåì â êîíåö íîâûé ýëåìåíò
+	B[count] = new_element;//Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð² ÐºÐ¾Ð½ÐµÑ† Ð½Ð¾Ð²Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚
 
-	return B;//âîçâðàùàåì íîâûé ìàññèâ
+	return B;//Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ð½Ð¾Ð²Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð²
 }
 
 void List::push_node(Node* N)
@@ -88,7 +88,7 @@ void List::insert_node(Node* N, int Number)
 {
 	Node* C = first;
 
-	if (Number == 0)// äëÿ íà÷àëà 
+	if (Number == 0)// Ð´Ð»Ñ Ð½Ð°Ñ‡Ð°Ð»Ð° 
 	{
 		N->next = first;
 		first->prev = N;
@@ -100,7 +100,7 @@ void List::insert_node(Node* N, int Number)
 	{
 		if (C == 0)
 		{
-			cout << "Èíäåêñ " << Number << " íå ñóùåñòâóåò";
+			cout << "Ð˜Ð½Ð´ÐµÐºÑ " << Number << " Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚";
 			break;
 		}
 		if (i == Number)
@@ -110,7 +110,7 @@ void List::insert_node(Node* N, int Number)
 			N->prev = C->prev;
 			C->prev = N;
 		}
-		if (i + 1 == Number && C == last)//äëÿ êîíöà
+		if (i + 1 == Number && C == last)//Ð´Ð»Ñ ÐºÐ¾Ð½Ñ†Ð°
 		{
 			return push_node(N);
 		}
@@ -267,7 +267,7 @@ void List::insert(int Number, string FIO, string Work_position, string Adress)
 	Node* N = new Node(FIO, Work_position, Adress);
 	Node* C = first;
 
-	if (Number == 0)// äëÿ íà÷àëà 
+	if (Number == 0)// Ð´Ð»Ñ Ð½Ð°Ñ‡Ð°Ð»Ð° 
 	{
 		N->next = first;
 		first->prev = N;
@@ -279,13 +279,13 @@ void List::insert(int Number, string FIO, string Work_position, string Adress)
 	{
 		if (C == 0)
 		{
-			cout << "Èíäåêñ " << Number << " íå ñóùåñòâóåò";
+			cout << "Ð˜Ð½Ð´ÐµÐºÑ " << Number << " Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚";
 			break;
 		}
 
 		if (i == Number)
 		{
-			if (C == last)//äëÿ êîíöà
+			if (C == last)//Ð´Ð»Ñ ÐºÐ¾Ð½Ñ†Ð°
 			{
 				return push_node(N);
 			}
@@ -300,7 +300,7 @@ void List::insert(int Number, string FIO, string Work_position, string Adress)
 	}
 }
 
-Node* List::pop(int Number)//Ó÷èòûâàòü íà÷àëî è êîíåö ñïèñêà
+Node* List::pop(int Number)//Ð£Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°Ñ‚ÑŒ Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ð¸ ÐºÐ¾Ð½ÐµÑ† ÑÐ¿Ð¸ÑÐºÐ°
 {
 	Node* C = first;
 
@@ -318,7 +318,7 @@ Node* List::pop(int Number)//Ó÷èòûâàòü íà÷àëî è êîíåö ñïèñêà
 	{
 		if (C == 0)
 		{
-			cout << "Èíäåêñ " << Number << " íå ñóùåñòâóåò";
+			cout << "Ð˜Ð½Ð´ÐµÐºÑ " << Number << " Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚";
 			break;
 		}
 		if (i == Number)
@@ -455,7 +455,7 @@ void List::Change(int Number, string FIO, string Work_position, string Adress)
 	{
 		if (C == 0)
 		{
-			cout << "Èíäåêñ " << Number << " íå ñóùåñòâóåò";
+			cout << "Ð˜Ð½Ð´ÐµÐºÑ " << Number << " Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚";
 			break;
 		}
 
