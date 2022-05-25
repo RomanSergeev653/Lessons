@@ -3,7 +3,7 @@
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-	system("chcp 1251");
+	system("chcp 65001");
 	system("cls");
 
 	List A;

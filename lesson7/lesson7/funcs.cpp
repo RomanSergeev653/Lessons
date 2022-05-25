@@ -1,5 +1,16 @@
 ﻿#include "funcs.h"
 
+long long powll(long long A, int n)//функция степени для нормальной обработки long long
+{
+    long long R = 1;
+    for (int i = 0; i < n; i++)
+    {
+        R *= A;
+    }
+
+    return R;
+}
+
 MyByte::MyByte()
 {
     bits = { 0,0,0,0,0,0,0,0 };
@@ -22,15 +33,25 @@ Vbool MyByte::itob(long long A)
 {
     Vbool B;
     if (A == 0) B.push_back(0);
+    if (A == LLONG_MIN)//обработка случая для минимальной границы
+    {
+        B.push_back(1);
+        for (int i = 0; i < 63; i++)
+        {
+            B.push_back(0);
+        }
+
+        return B;
+    }//
 
     int step = log2(A);
 
     for (; step >= 0; step--)
     {
-        if ((A - pow(2, step)) >= 0)
+        if ((A - powll(2, step)) >= 0)
         {
             B.push_back(1);
-            A -= pow(2, step);
+            A -= powll(2, step);
         }
         else
         {
